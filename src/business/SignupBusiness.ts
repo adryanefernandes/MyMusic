@@ -1,15 +1,22 @@
-import userDatabase from "../data/UserDatabase";
+import userDatabase, { UserDatabase } from "../data/UserDatabase";
 import { User } from "../model/userInterface";
-import authenticator from "../services/Authenticator";
-import generateId from "../services/generateId";
-import hashManager from "../services/HashManager";
+import authenticator, { Authenticator } from "../services/Authenticator";
+import generateId, { GenerateId } from "../services/generateId";
+import hashManager, { HashManager } from "../services/HashManager";
 import { CustomError } from "./error/CustomError";
 import feildIsValid from "./validations/FeildIsValid";
 
 export class SignupBusiness {
+  constructor(
+    private userDatabase: UserDatabase,
+    private generateId: GenerateId,
+    private hashManager: HashManager,
+    private authenticator: Authenticator
+  ) {}
+
   async execute(user: User): Promise<string> {
     try {
-      //Validações
+      //Validations
       if (!user.name || !user.email || !user.nickname || !user.password) {
         throw new CustomError(
           400,
@@ -19,26 +26,26 @@ export class SignupBusiness {
 
       feildIsValid.emailIsValid(user.email);
 
-      const userByEmail = await userDatabase.getUserByEmail(user.email);
-      if (userByEmail.length > 0) {
+      const userByEmail = await this.userDatabase.getUserByEmail(user.email);
+      if (userByEmail.length === 1) {
         throw new CustomError(409, "Email already exists");
       }
 
-      const userByNickname = await userDatabase.getUserByNickname(
+      const userByNickname = await this.userDatabase.getUserByNickname(
         user.nickname
       );
-      if (userByNickname.length > 0) {
+      if (userByNickname.length === 1) {
         throw new CustomError(409, "User already exists");
       }
 
       if (user.password.length < 6) {
         throw new CustomError(400, "Password must be at least 6 characters");
       }
+      
+      // -- //
+      const id = this.generateId.create();
 
-      //Criando dados que faltam
-      const id = generateId.create();
-
-      const hashPassword = hashManager.createHash(user.password);
+      const hashPassword = this.hashManager.createHash(user.password);
 
       const userData: User = {
         ...user,
@@ -46,16 +53,20 @@ export class SignupBusiness {
         password: hashPassword,
       };
 
-      await userDatabase.insertUser(userData);
+      await this.userDatabase.insertUser(userData);
 
-      const token = authenticator.generateToken({ id });
+      const token = this.authenticator.generateToken({ id });
 
       return token;
-
     } catch (error) {
       throw new CustomError(error.statusCode, error.message);
     }
   }
 }
 
-export default new SignupBusiness();
+export default new SignupBusiness(
+  userDatabase,
+  generateId,
+  hashManager,
+  authenticator
+);

@@ -1,7 +1,7 @@
 import { User } from '../model/userInterface'
 import { BaseDatabase } from './BaseDatabase'
 
-class UserDatabase extends BaseDatabase {
+export class UserDatabase extends BaseDatabase {
   private nameDatabase = 'user'
 
   async getUserByEmail(email: string): Promise<User[]>{
