@@ -26,15 +26,15 @@ export class SignupBusiness {
 
       feildIsValid.emailIsValid(user.email);
 
-      const userByEmail = await this.userDatabase.getUserByEmail(user.email);
-      if (userByEmail.length === 1) {
+      const searchUserByEmail = await this.userDatabase.getUserByEmail(user.email);
+      if (searchUserByEmail.length === 1) {
         throw new CustomError(409, "Email already exists");
       }
 
-      const userByNickname = await this.userDatabase.getUserByNickname(
+      const searchUserByNickname = await this.userDatabase.getUserByNickname(
         user.nickname
       );
-      if (userByNickname.length === 1) {
+      if (searchUserByEmail.length === 1) {
         throw new CustomError(409, "User already exists");
       }
 
