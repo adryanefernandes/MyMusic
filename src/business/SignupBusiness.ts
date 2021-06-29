@@ -34,7 +34,7 @@ export class SignupBusiness {
       const searchUserByNickname = await this.userDatabase.getUserByNickname(
         user.nickname
       );
-      if (searchUserByEmail.length === 1) {
+      if (searchUserByNickname.length === 1) {
         throw new CustomError(409, "User already exists");
       }
 
