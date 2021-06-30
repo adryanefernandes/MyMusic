@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
-import signupBusiness from "../business/signupBusiness";
-import { User } from "../model/userInterface";
+import loginBusiness from "../business/LoginBusiness";
+import { UserLogin } from "../model/userInterface";
 
-export class Signup {
+export class Login {
   async handle(req: Request, res: Response): Promise<void> {
     try {
-      const user: User = {
-        name: req.body.name,
-        nickname: req.body.nickname,
+      const user: UserLogin = {
         email: req.body.email,
         password: req.body.password,
       };
 
-      const token = await signupBusiness.execute(user);
+      const token = await loginBusiness.execute(user);
 
       res.send({ token });
     } catch (error) {
@@ -23,4 +21,4 @@ export class Signup {
   }
 }
 
-export default new Signup();
+export default new Login();

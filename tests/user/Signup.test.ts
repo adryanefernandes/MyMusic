@@ -1,17 +1,17 @@
-import { SignupBusiness } from "../../../src/business/signupBusiness";
-import { User } from "../../../src/model/userInterface";
-import authenticatorMock from "../../mock/AuthenticatorMock";
-import generateIdMock from "../../mock/GenerateIdMock";
-import hashManagerMock from "../../mock/HashManagerMock";
-import userDatabaseMock from "../../mock/UserDatabaseMock";
+import { SignupBusiness } from "../../src/business/signupBusiness";
+import { User } from "../../src/model/userInterface";
+import authenticatorMock from "../mock/AuthenticatorMock";
+import generateIdMock from "../mock/GenerateIdMock";
+import hashManagerMock from "../mock/HashManagerMock";
+import userDatabaseMockNoResults from "../mock/userDatabaseMockNoResults";
 
-describe("signup functions test", () => {
+describe("signup test", () => {
   test("Returns error: some field was not filled", async () => {
     expect.assertions(1);
 
     try {
       const signupBusiness = new SignupBusiness(
-        userDatabaseMock,
+        userDatabaseMockNoResults,
         generateIdMock,
         hashManagerMock,
         authenticatorMock
@@ -37,7 +37,7 @@ describe("signup functions test", () => {
 
     try {
       const signupBusiness = new SignupBusiness(
-        userDatabaseMock,
+        userDatabaseMockNoResults,
         generateIdMock,
         hashManagerMock,
         authenticatorMock
@@ -63,7 +63,7 @@ describe("signup functions test", () => {
 
     try {
       const signupBusiness = new SignupBusiness(
-        userDatabaseMock,
+        userDatabaseMockNoResults,
         generateIdMock,
         hashManagerMock,
         authenticatorMock
@@ -84,7 +84,7 @@ describe("signup functions test", () => {
 
   test("Success: returns token", async () => {
     const signupBusiness = new SignupBusiness(
-      userDatabaseMock,
+      userDatabaseMockNoResults,
       generateIdMock,
       hashManagerMock,
       authenticatorMock
