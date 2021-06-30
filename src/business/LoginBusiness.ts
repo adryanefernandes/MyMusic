@@ -1,23 +1,29 @@
-import userDatabase from "../data/UserDatabase";
+import userDatabase, { UserDatabase } from "../data/UserDatabase";
+import authenticator, { Authenticator } from "../services/Authenticator";
+import hashManager, { HashManager } from "../services/HashManager";
+import { CustomError } from "./error/CustomError";
 import { AuthenticatorData } from "../model/authenticatorInterface";
 import { UserLogin } from "../model/userInterface";
-import authenticator from "../services/Authenticator";
-import hashManager from "../services/HashManager";
-import { CustomError } from "./error/CustomError";
 
 export class LoginBusiness {
+  constructor(
+    private userDatabase: UserDatabase,
+    private hashManager: HashManager,
+    private authenticator: Authenticator
+  ){}
+
   async execute(user: UserLogin): Promise<string> {
     try {
       if (!user.email || !user.password) {
         throw new CustomError(
           400,
-          "Fields 'name', 'email, 'nickname' and 'password' are required"
+          "Fields 'name' and 'password' are required"
         );
       }
 
-      const [userData] = await userDatabase.getUserByEmail(user.email);
+      const [userData] = await this.userDatabase.getUserByEmail(user.email);
 
-      const passwordIsCorrect = hashManager.compareHash(
+      const passwordIsCorrect = this.hashManager.compareHash(
         user.password,
         userData.password
       );
@@ -26,7 +32,7 @@ export class LoginBusiness {
       }
 
       const generateTokenData: AuthenticatorData = { id: userData.id as string }
-      const token = authenticator.generateToken(generateTokenData);
+      const token = this.authenticator.generateToken(generateTokenData);
 
       return token;
     } catch (error) {
@@ -35,4 +41,4 @@ export class LoginBusiness {
   }
 }
 
-export default new LoginBusiness();
+export default new LoginBusiness(userDatabase, hashManager, authenticator);
