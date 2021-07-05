@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import { UserDatabase } from "../../src/data/UserDatabase";
-import { User } from "../../src/model/userInterface";
+import { User } from "../../src/model/userInterfaces";
 
 export class UserDatabaseMockSignup extends UserDatabase {
   async getUserByEmail(email: string): Promise<User[]> {

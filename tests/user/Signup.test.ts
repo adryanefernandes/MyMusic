@@ -1,5 +1,5 @@
 import { SignupBusiness } from "../../src/business/signupBusiness";
-import { User } from "../../src/model/userInterface";
+import { User } from "../../src/model/userInterfaces";
 import authenticatorMock from "../mock/AuthenticatorMock";
 import generateIdMock from "../mock/GenerateIdMock";
 import hashManagerMock from "../mock/HashManagerMock";

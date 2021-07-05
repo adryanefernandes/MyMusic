@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import loginBusiness from "../business/LoginBusiness";
-import { UserLogin } from "../model/userInterface";
+import { UserLogin } from "../model/userInterfaces";
 
 export class Login {
   async handle(req: Request, res: Response): Promise<void> {

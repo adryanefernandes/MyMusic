@@ -1,8 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import cors from "cors";
-import { CustomError } from "./business/error/CustomError";
 import { userRouter } from "./router/userRouter";
 import "express-async-errors";
+import { musicRouter } from "./router/musicRouter";
 
 const app = express();
 
@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/user", userRouter);
+app.use("/music", musicRouter)
 
 
 app.listen(3003, () => {

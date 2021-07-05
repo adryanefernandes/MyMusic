@@ -3,7 +3,7 @@ import authenticator, { Authenticator } from "../services/Authenticator";
 import hashManager, { HashManager } from "../services/HashManager";
 import { CustomError } from "./error/CustomError";
 import { AuthenticatorData } from "../model/authenticatorInterface";
-import { UserLogin } from "../model/userInterface";
+import { UserLogin } from "../model/userInterfaces";
 
 export class LoginBusiness {
   constructor(
