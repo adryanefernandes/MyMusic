@@ -15,9 +15,9 @@ export class CreateMusic {
 
       const token = req.headers.authorization as string;
 
-      await createMusicBusiness.execute(newMusic, token);
+      const answer = await createMusicBusiness.execute(newMusic, token);
 
-      res.send({ message: "created!" });
+      res.send(answer);
     } catch (error) {
       res
         .status(error.statusCode || 500)

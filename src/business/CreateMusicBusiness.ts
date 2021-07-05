@@ -1,14 +1,21 @@
-import musicDataBase from "../data/MusicDataBase";
-import userDatabase from "../data/UserDatabase";
+import musicDataBase, { MusicDataBase } from "../data/MusicDataBase";
+import userDatabase, { UserDatabase } from "../data/UserDatabase";
+import authenticator, { Authenticator } from "../services/Authenticator";
+import generateId, { GenerateId } from "../services/GenerateId";
 import { AuthenticatorData } from "../model/authenticatorInterface";
-import { Music } from "../model/musicInterfaces";
-import authenticator from "../services/Authenticator";
+import { Answer, Music } from "../model/musicInterfaces";
 import { CustomError } from "./error/CustomError";
 import { currentDate } from "./functions/currentDate";
-import generateId from "../services/GenerateId";
 
 export class CreateMusicBusiness {
-  async execute(music: Music, token: string): Promise<void> {
+  constructor(
+    private authenticator: Authenticator,
+    private userDatabase: UserDatabase,
+    private generateId: GenerateId,
+    private musicDataBase: MusicDataBase
+  ) {}
+
+  async execute(music: Music, token: string): Promise<Answer> {
     try {
       if (
         !music.title ||
@@ -17,21 +24,25 @@ export class CreateMusicBusiness {
         !music.author ||
         !music.album
       ) {
-        throw new CustomError(400, "Fields 'title', 'genre', 'file', 'date', 'author' and 'album' are required");
+        throw new CustomError(
+          400,
+          "Fields 'title', 'genre', 'file', 'date', 'author' and 'album' are required"
+        );
       }
-      if(!token){
+      if (!token) {
         throw new CustomError(401, "Not authorized");
       }
 
-      const tokenData: AuthenticatorData = authenticator.getTokenData(token)
-      const [idExist] = await userDatabase.getUserById(tokenData.id)
-      if(!idExist){
+      const tokenData: AuthenticatorData =
+        this.authenticator.getTokenData(token);
+      const [idExist] = await this.userDatabase.getUserById(tokenData.id);
+      if (!idExist) {
         throw new CustomError(401, "Invalid Token");
       }
 
-      const id: string = generateId.create()
-      const dateNow: string = currentDate()
-  
+      const id: string = this.generateId.create();
+      const dateNow: string = currentDate();
+
       const newMusic: Music = {
         id,
         title: music.title,
@@ -39,15 +50,25 @@ export class CreateMusicBusiness {
         file: music.file,
         author: music.author,
         album: music.album,
-        date: dateNow
+        date: dateNow,
+      };
+
+      await this.musicDataBase.createMusic(newMusic);
+
+      const message: Answer = {
+        message: "Created!"
       }
 
-      await musicDataBase.createMusic(newMusic)
-
+      return message
     } catch (error) {
       throw new CustomError(error.statusCode, error.message);
     }
   }
 }
 
-export default new CreateMusicBusiness();
+export default new CreateMusicBusiness(
+  authenticator,
+  userDatabase,
+  generateId,
+  musicDataBase
+);

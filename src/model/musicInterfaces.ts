@@ -7,3 +7,7 @@ export interface Music {
   genre: string[],
   album: string
 }
+
+export interface Answer {
+  message: string
+}
