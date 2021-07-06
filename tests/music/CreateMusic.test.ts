@@ -2,9 +2,8 @@ import { CreateMusicBusiness } from "../../src/business/CreateMusicBusiness";
 import authenticatorMock from "../mock/AuthenticatorMock";
 import userDataBaseMock from "../mock/UserDatabaseMockResults";
 import generateIdMock from "../mock/GenerateIdMock";
-import { MusicDataBase } from "../../src/data/MusicDataBase";
 import { Music } from "../../src/model/musicInterfaces";
-import musicDatabaseMockResult from "../mock/MusicDatabaseMockResult";
+import musicDatabaseMock from "../mock/MusicDatabaseMock";
 
 describe("endpoint of creating music", () => {
   test("Returns error: When some field is not filled", async () => {
@@ -15,7 +14,7 @@ describe("endpoint of creating music", () => {
         authenticatorMock,
         userDataBaseMock,
         generateIdMock,
-        musicDatabaseMockResult
+        musicDatabaseMock
       );
 
       const newMusic: Music = {
@@ -44,7 +43,7 @@ describe("endpoint of creating music", () => {
         authenticatorMock,
         userDataBaseMock,
         generateIdMock,
-        musicDatabaseMockResult
+        musicDatabaseMock
       );
 
       const newMusic: Music = {
@@ -68,7 +67,7 @@ describe("endpoint of creating music", () => {
       authenticatorMock,
       userDataBaseMock,
       generateIdMock,
-      musicDatabaseMockResult
+      musicDatabaseMock
     );
 
     const newMusic: Music = {
