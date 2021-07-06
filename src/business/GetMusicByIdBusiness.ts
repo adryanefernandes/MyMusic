@@ -1,8 +1,12 @@
-import musicDataBase from "../data/MusicDataBase";
+import musicDataBase, { MusicDataBase } from "../data/MusicDataBase";
 import { Music } from "../model/musicInterfaces";
 import { CustomError } from "./error/CustomError";
 
 export class GetMusicByIdBusiness {
+  constructor(
+    private musicDataBase: MusicDataBase
+  ){}
+
   async execute(id: string, token: string): Promise<Music>{
     try {
       if(!id){
@@ -12,7 +16,7 @@ export class GetMusicByIdBusiness {
         throw new CustomError(401, "Not authorized");
       }
 
-      const result: Music = await musicDataBase.getById(id)
+      const result: Music = await this.musicDataBase.getById(id)
 
       return result
     } catch (error) {
@@ -21,4 +25,4 @@ export class GetMusicByIdBusiness {
   }
 }
 
-export default new GetMusicByIdBusiness();
+export default new GetMusicByIdBusiness(musicDataBase);
