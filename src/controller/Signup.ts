@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import signupBusiness from "../business/signupBusiness";
-import { User } from "../model/userInterface";
+import { User } from "../model/userInterfaces";
 
 export class Signup {
   async handle(req: Request, res: Response): Promise<void> {

@@ -1,7 +1,7 @@
 import userDatabase, { UserDatabase } from "../data/UserDatabase";
-import { User } from "../model/userInterface";
+import { User } from "../model/userInterfaces";
 import authenticator, { Authenticator } from "../services/Authenticator";
-import generateId, { GenerateId } from "../services/generateId";
+import generateId, { GenerateId } from "../services/GenerateId";
 import hashManager, { HashManager } from "../services/HashManager";
 import { CustomError } from "./error/CustomError";
 import feildIsValid from "./validations/FeildIsValid";
