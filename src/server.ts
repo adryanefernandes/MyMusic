@@ -12,7 +12,6 @@ app.use(cors());
 app.use("/user", userRouter);
 app.use("/music", musicRouter)
 
-
 app.listen(3003, () => {
   console.log("Server is running in http://localhost:3003");
 });

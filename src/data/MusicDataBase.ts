@@ -18,6 +18,14 @@ export class MusicDataBase extends BaseDatabase {
       )
     `);
   }
+
+  async getMusics(): Promise<Music[]>{
+    const [result] = await this.connection.raw(`
+      SELECT * FROM ${this.tableName}
+    `)
+
+    return result
+  }
 }
 
 export default new MusicDataBase();
