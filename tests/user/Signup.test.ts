@@ -1,9 +1,9 @@
-import { SignupBusiness } from "../../src/business/signupBusiness";
+import { SignupBusiness } from "../../src/business/SignupBusiness";
 import { User } from "../../src/model/userInterfaces";
 import authenticatorMock from "../mock/AuthenticatorMock";
 import generateIdMock from "../mock/GenerateIdMock";
 import hashManagerMock from "../mock/HashManagerMock";
-import userDatabaseMockNoResults from "../mock/userDatabaseMockNoResults";
+import userDatabaseMockNoResults from "../mock/UserDatabaseMockNoResults";
 
 describe("signup test", () => {
   test("Returns error: some field was not filled", async () => {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import signupBusiness from "../business/signupBusiness";
+import signupBusiness from "../business/SignupBusiness";
 import { User } from "../model/userInterfaces";
 
 export class Signup {
