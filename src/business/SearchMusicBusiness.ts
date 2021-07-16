@@ -3,10 +3,13 @@ import { Music } from "../model/musicInterfaces";
 import { CustomError } from "./error/CustomError";
 
 export class SearchMusicBusiness {
-  async execute(search: string) {
+  async execute(search: string, token: string) {
     try {
       if (!search) {
         throw new CustomError(404, "Empty search field");
+      }
+      if (!token) {
+        throw new CustomError(401, "Not authorized");
       }
 
       const result: Music[] = await searchMusicDatabase.getResult(search.toLowerCase());
