@@ -17,8 +17,8 @@ export class Signup {
       res.send({ token });
     } catch (error) {
       res
-        .status(error.statusCode || 500)
-        .send({ message: error.message || "internal Error" });
+        .status(error.statusCode || 400)
+        .send({ message: error.message || error.sqlMessage });
     }
   }
 }

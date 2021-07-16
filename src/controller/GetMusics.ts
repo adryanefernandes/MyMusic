@@ -11,8 +11,8 @@ export class GetMusics {
       res.send(result)
     } catch (error) {
       res
-        .status(error.statusCode || 500)
-        .send({ message: error.message || "Internal error" });
+        .status(error.statusCode || 400)
+        .send({ message: error.message || error.sqlMessage });
     }
   }
 }
