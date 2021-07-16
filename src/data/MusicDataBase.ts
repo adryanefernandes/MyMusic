@@ -12,7 +12,7 @@ export class MusicDataBase extends BaseDatabase {
         "${music.title}",
         "${music.author}",
         "${music.date}",
-        "${music.file}",
+        LOAD_FILE("${music.file}"),
         "${music.genre}",
         "${music.album}"
       )
