@@ -9,7 +9,7 @@
 <p align="center" >
   <a href="#-sobre-a-aplica%C3%A7%C3%A3o"> Sobre </a> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-conteúdos-aplicados"> Conteúdos aplicados</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-instalação"> Instalação </a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-suporte"> Suporte </a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licen%C3%A7a">Licença</a>
 </p>
@@ -35,7 +35,7 @@ https://github.com/adryanefernandes/MyMusic-FrontEnd
 - NodeJS
 - Typescript
 - MySQL
-- 
+
 ## 🛠 Instalação
 
 ```bash
