@@ -14,7 +14,7 @@ export class MusicDataBase extends BaseDatabase {
         "${music.title}",
         "${music.author}",
         "${music.date}",
-        LOAD_FILE("${music.file}"),
+        "${music.file}",
         "${music.genre}",
         "${music.album}"
       )
