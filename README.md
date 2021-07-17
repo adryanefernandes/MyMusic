@@ -25,9 +25,9 @@
 
 
 ## 📌 Sobre a aplicação
-A **MyMusic** é uma aplicação para listagem de músicas. Ao fazer cadastro, você pode adicionar suas músicas favoritas a uma lista compartilhada por todos os usuários, nela é possível fazer pesquisas e conhecer novas músicas. 
+Esse é o backend do **MyMusic**, uma aplicação para listagem de músicas. No backend, há endpoints para o cadastro e login dos usuário, cadastro de músicas e uma listagem com todas elas;
 
-Aplicação construida para fins educacionais, uma aplicação onde pude revisar e treinar conceitos tanto sobre o Front como o Back.
+Aplicação construida para fins educacionais, onde pude revisar e treinar conceitos tanto sobre o Front como o Back.
 Link para o Front:
 https://github.com/adryanefernandes/MyMusic-FrontEnd
 
