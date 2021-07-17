@@ -1,38 +1,52 @@
-import { User } from '../model/userInterfaces'
-import { BaseDatabase } from './BaseDatabase'
+import { CustomError } from "../business/error/CustomError";
+import { User } from "../model/userInterfaces";
+import { BaseDatabase } from "./BaseDatabase";
 
 export class UserDatabase extends BaseDatabase {
-  private nameDatabase = 'users'
+  private nameDatabase = "users";
 
-  async getUserByEmail(email: string): Promise<User[]>{
-    const [result] = await this.connection.raw(`
+  async getUserByEmail(email: string): Promise<User[]> {
+    try {
+      const [result] = await this.connection.raw(`
       SELECT * FROM ${this.nameDatabase}
       WHERE email = "${email}"
-    `)
+    `);
 
-    return result
+      return result;
+    } catch (error) {
+      throw new CustomError(error.statusCode, error.message);
+    }
   }
 
-  async getUserByNickname(nickname: string): Promise<User[]>{
-    const [result] = await this.connection.raw(`
+  async getUserByNickname(nickname: string): Promise<User[]> {
+    try {
+      const [result] = await this.connection.raw(`
       SELECT * FROM ${this.nameDatabase}
       WHERE nickname = "${nickname}"
-    `)
+    `);
 
-    return result
+      return result;
+    } catch (error) {
+      throw new CustomError(error.statusCode, error.message);
+    }
   }
 
-  async getUserById(id: string): Promise<User[]>{
-    const [result] = await this.connection.raw(`
+  async getUserById(id: string): Promise<User[]> {
+    try {
+      const [result] = await this.connection.raw(`
       SELECT * FROM ${this.nameDatabase}
       WHERE id = "${id}"
-    `)
+    `);
 
-    return result
+      return result;
+    } catch (error) {
+      throw new CustomError(error.statusCode, error.message);
+    }
   }
 
-  async insertUser(user: User): Promise<void>{
-    await this.connection.raw(`
+  async insertUser(user: User): Promise<void> {
+    try {
+      await this.connection.raw(`
       INSERT INTO ${this.nameDatabase}
       VALUES(
         "${user.id}",
@@ -41,8 +55,11 @@ export class UserDatabase extends BaseDatabase {
         "${user.email}",
         "${user.password}"
       )
-    `)
+    `);
+    } catch (error) {
+      throw new CustomError(error.statusCode, error.message);
+    }
   }
 }
 
-export default new UserDatabase()
+export default new UserDatabase();
