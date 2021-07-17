@@ -22,6 +22,9 @@ export class LoginBusiness {
       }
 
       const [userData] = await this.userDatabase.getUserByEmail(user.email);
+      if(!userData){
+        throw new CustomError(403, "Unregistered email")
+      }
 
       const passwordIsCorrect = this.hashManager.compareHash(
         user.password,
